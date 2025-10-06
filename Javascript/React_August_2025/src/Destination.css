@@ -1,0 +1,51 @@
+/* Style for the card */
+.card {
+    width: 15rem;
+    height: 12rem;
+    border-radius: 10px; /* curvy corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* soft shadow */
+    transition: transform 0.3s, box-shadow 0.3s; /* smooth hover animation */
+    overflow: hidden; /* ensures rounded corners cut off images */
+}
+
+    /* Card hover effect */
+    .card:hover {
+        transform: translateY(-5px); /* lift effect */
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* stronger shadow */
+    }
+
+/* Card image rounded on top */
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* Card body text */
+.card-body {
+    padding: 20px;
+}
+
+/* Card title */
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Card text */
+.card-text {
+    font-size: 1rem;
+    color: #555; /* subtle gray */
+    margin-bottom: 15px;
+}
+
+/* Card button */
+.card button {
+    border-radius: 8px; /* slightly rounded button */
+    transition: background-color 0.3s;
+}
+
+    /* Button hover effect */
+    .card button:hover {
+        background-color: #0056b3; /* darker shade on hover */
+    }
