@@ -3,11 +3,22 @@ import { BoardProvider } from './include/Include.jsx'
 import { Board } from './Board.jsx'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
+import { xWin, yWin, setBoard } from './Models/Actions'
 
 
+const withDispatch = (actions) => (Component) => (props) => {
 
-function App() {
+    const dispatch = useDispatch()
+    const mappedActions = Object.fromEntries(Object.entries(actions).map(([name,action]) => [name,(payload) => dispatch(action(payload))]))
+
+    const params = { ...mappedActions, ...props }
+
+    return <Component {...params} />
+
+}
+
+function App({ xWin, yWin, setBoard }) {
 
     const board = useSelector(state => state.board)
 
@@ -52,9 +63,9 @@ function App() {
             const [a, b, c] = combo;
             if (board[a] && board[a] === board[b] && board[b] === board[c]) {
                 if (board[a] === 'x')
-                    dispatch({type:"XWIN"})
+                    xWin()
                 else
-                    dispatch({type:"YWIN"})
+                    yWin()
                 dispatch({type:"NEWGAME"})
                 return;
             }
@@ -76,7 +87,9 @@ function App() {
 
         if (board[position]) return;
 
-        dispatch({ type: "SETBOARD", payload: position })
+        setBoard(position)
+
+
 
         isXnext ? dispatch({ type: "ISYNEXT" }) : dispatch({type:"ISXNEXT"})
 
@@ -95,4 +108,4 @@ function App() {
     )
 }
 
-export default App;
+export default withDispatch({ xWin, yWin, setBoard })(App)

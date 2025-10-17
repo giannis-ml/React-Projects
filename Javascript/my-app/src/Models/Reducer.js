@@ -1,13 +1,9 @@
 
-const XWIN = "XWIN"
-
-const YWIN = "YWIN"
+import {xWin, yWin, setBoard } from "./Actions"
 
 const ISXNEXT = "ISXNEXT"
 
 const ISYNEXT = "ISYNEXT"
-
-const SETBOARD = "SETBOARD"
 
 const NEWGAME = "NEWGAME"
 
@@ -22,7 +18,7 @@ const initialState = {
 const reducer = (state=initialState, action) => {
     switch (action.type) {
 
-        case SETBOARD:
+        case setBoard.type:
         {
 
             const nextBoard = state.board.slice();
@@ -34,10 +30,10 @@ const reducer = (state=initialState, action) => {
             };
         }
 
-        case XWIN:
+        case xWin.type:
             return { ...state, xWins: state.xWins + 1, message: "Winner: X" };
 
-        case YWIN:
+        case yWin.type:
             return { ...state, yWins: state.yWins + 1, message: "Winner: O" };
 
         case ISXNEXT:
