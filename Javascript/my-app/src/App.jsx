@@ -4,30 +4,23 @@ import { Board } from './Board.jsx'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css'
 import { useSelector, useDispatch, connect } from 'react-redux'
-import { xWin, yWin, setBoard } from './Models/Actions'
+import { xWin, yWin, setBoard, isXnextPlayer, isYnext, newGame} from './Models/Actions'
 
 
-const withDispatch = (actions) => (Component) => (props) => {
+const withDispatch = (actions,variables) => (Component) => (props) => {
 
     const dispatch = useDispatch()
-    const mappedActions = Object.fromEntries(Object.entries(actions).map(([name,action]) => [name,(payload) => dispatch(action(payload))]))
+    const mappedActions = Object.fromEntries(Object.entries(actions).map(([name, action]) => [name, (payload) => dispatch(action(payload))]))
 
-    const params = { ...mappedActions, ...props }
+    const mappedVariables = Object.fromEntries(Object.entries(variables).map(([name, selector]) => [name, useSelector(selector)]))
+
+    const params = { ...mappedActions, ... mappedVariables,...props }
 
     return <Component {...params} />
 
 }
 
-function App({ xWin, yWin, setBoard }) {
-
-    const board = useSelector(state => state.board)
-
-    const isXnext = useSelector(state=>state.isXnext)
-
-    const message = useSelector(state=>state.message)
-
-    const winsOfX = useSelector(state => state.xWins)
-    const winsOfY = useSelector(state => state.yWins)
+function App({ xWin, yWin, setBoard, isXnextPlayer, isYnext, newGame, board, isXnext,message,winsOfX,winsOfY }) {
 
     const darkTheme = createTheme({
         palette: {
@@ -43,8 +36,6 @@ function App({ xWin, yWin, setBoard }) {
         }
 
     });
-
-    const dispatch = useDispatch()
 
     const CheckIfGameFinished = () => {
 
@@ -66,13 +57,13 @@ function App({ xWin, yWin, setBoard }) {
                     xWin()
                 else
                     yWin()
-                dispatch({type:"NEWGAME"})
+                newGame()
                 return;
             }
         }
 
         if (!board.includes(null)) {
-            setTimeout(() => dispatch({ type: "NEWGAME" }), 1000);
+            setTimeout(() => newGame(), 1000);
             return;
         }
 
@@ -91,7 +82,7 @@ function App({ xWin, yWin, setBoard }) {
 
 
 
-        isXnext ? dispatch({ type: "ISYNEXT" }) : dispatch({type:"ISXNEXT"})
+        isXnext ? isYnext() : isXnextPlayer()
 
     }
 
@@ -108,4 +99,10 @@ function App({ xWin, yWin, setBoard }) {
     )
 }
 
-export default withDispatch({ xWin, yWin, setBoard })(App)
+export default withDispatch({ xWin, yWin, setBoard, isXnextPlayer, isYnext, newGame }, {
+                                                                                            board: (state) => state.board,
+                                                                                            isXnext: (state) => state.isXnext,
+                                                                                            message: (state) => state.message,
+                                                                                            winsOfX: (state) => state.xWins,
+                                                                                            winsOfY: (state) => state.yWins,
+                                                                                        })(App)

@@ -1,11 +1,5 @@
 
-import {xWin, yWin, setBoard } from "./Actions"
-
-const ISXNEXT = "ISXNEXT"
-
-const ISYNEXT = "ISYNEXT"
-
-const NEWGAME = "NEWGAME"
+import {xWin, yWin, setBoard, isXnextPlayer, isYnext,newGame } from "./Actions"
 
 const initialState = {
     board: Array(9).fill(null),
@@ -36,13 +30,13 @@ const reducer = (state=initialState, action) => {
         case yWin.type:
             return { ...state, yWins: state.yWins + 1, message: "Winner: O" };
 
-        case ISXNEXT:
+        case isXnextPlayer.type:
             return { ...state, isXnext: true, message: "Now Playing: O" };
 
-        case ISYNEXT:
+        case isYnext.type:
             return { ...state, isXnext: false, message: "Now Playing: X" };
 
-        case NEWGAME:
+        case newGame.type:
             return {
                 ...state,
                 board: Array(9).fill(null),
