@@ -1,28 +1,32 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import logo from "./assets/check-list.png";
 import ToDoList from "./Components/ToDoList";
+import { createContext, useState, useEffect } from "react";
+import ReactSwitch from "react-switch";
 import "./App.css";
 
+export const ThemeContext = createContext(null);
+
 function App() {
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: { main: "#190909" },
-    },
-    components: {
-      MuiButton: {
-        defaultProps: {
-          disableRipple: true,
-        },
-      },
-    },
-  });
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-bs-theme", theme);
+  }, [theme]);
 
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
-        <ToDoList />
-      </ThemeProvider>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <div className="App" id={theme}>
+          <ToDoList />
+          <div className="switch">
+            <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
+          </div>
+        </div>
+      </ThemeContext.Provider>
     </>
   );
 }

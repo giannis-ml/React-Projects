@@ -5,6 +5,24 @@
   text-align: center;
 }
 
+body.light {
+  background-color: #f3ebf6;
+  color: #000;
+}
+
+body.dark {
+  background-color: #0d0b0d;
+  color: #fff;
+}
+
+.switch {
+  display: flex;
+  width: 100vw;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
