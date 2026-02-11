@@ -13,6 +13,7 @@ function App() {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
+  //This is appropriate when using bootstrap, to update boostrap components
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
   }, [theme]);

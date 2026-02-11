@@ -5,12 +5,12 @@
   text-align: center;
 }
 
-body.light {
+.light {
   background-color: #f3ebf6;
   color: #000;
 }
 
-body.dark {
+.dark {
   background-color: #0d0b0d;
   color: #fff;
 }
