@@ -23,6 +23,7 @@ function App() {
         <div className="App" id={theme}>
           <ToDoList />
           <div className="switch">
+            <label>{theme === "dark" ? "Light Theme" : "Dark Theme"}</label>
             <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
           </div>
         </div>
