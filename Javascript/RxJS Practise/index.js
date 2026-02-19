@@ -53,14 +53,14 @@ const nums$ = new Observable((observer) => {
 });
 
 nums$
-  .pipe(
-    tap((x) => console.log("tap1", x)),
-    filter((x) => x % 2),
-    // map((x) => x + 1),
-    // tap((x) => console.log("tap2", x)),
-    // map((x) => x * 2),
-    // tap((x) => console.log("tap3", x)),
-  )
+  // .pipe(
+  //   tap((x) => console.log("tap1", x)),
+  //   filter((x) => x % 2),
+  // map((x) => x + 1),
+  // tap((x) => console.log("tap2", x)),
+  // map((x) => x * 2),
+  // tap((x) => console.log("tap3", x)),
+  // )
   .subscribe(
     (num) => {
       console.log(num);
